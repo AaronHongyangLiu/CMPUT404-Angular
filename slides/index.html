@@ -150,6 +150,39 @@ The home to the application
 ````
 'use strict';
 
+// Declare app level module which depends on filters, and services
+angular.module('myApp', [
+  'ngRoute',
+  'myApp.filters',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers'
+]).
+// Deal with the hash routes like #/view2
+// Tells the app which controller to use for each route
+config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+  $routeProvider.otherwise({redirectTo: '/view1'}); // add a default
+}]);
+````
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## app/js/app.js
+
+Let's add a view
+
+````
+'use strict';
 
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
@@ -159,12 +192,131 @@ angular.module('myApp', [
   'myApp.directives',
   'myApp.controllers'
 ]).
+// Deal with the hash routes like #/view2
+// Tells the app which controller to use for each route
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
   $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/example', {templateUrl: 'partials/example.html', controller: 'MyExample'});
+  $routeProvider.otherwise({redirectTo: '/view1'}); // add a default
 }]);
 
+````
+
+In index.html
+
+````
+    <li><a href="#/example">Example</a></li>
+````
+
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## app/partials/example.html
+
+In this example we make up a model element "inputValue". AngularJS
+will let us update the model via the input tags and using the
+{{modelVar}} notation we can print that result.
+
+````
+<p>This is the example view</p>
+<p>
+  <input type="text" ng-model="inputValue">
+  <input type="text" ng-model="inputValue">
+  <input type="text" ng-model="inputValue">
+  <div>inputValue: {{inputValue}}</div>
+</p>     
+
+````
+
+<a href="../app/index.html#/example">See the example</a>
+
+But it doesn't work...
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## app/js/controller.js
+
+* We told the app it had a controller of MyExample so we need to add a
+controller.
+
+* Controller will run code associated with a view and manipulate input
+or set things up for viewing. They will interact with the model as well.
+
+
+````
+'use strict';
+
+/* Controllers */
+
+angular.module('myApp.controllers', []).
+  controller('MyCtrl1', [function() {
+
+  }])
+  .controller('MyCtrl2', [function() {
+
+  }]);
+  .controller('MyExample', [function() {
+
+  }]);
+
+````
+
+<a href="../app/index.html#/example">See the example</a>
+
+But it doesn't work...
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## app/js/app.js
+
+Let's add a view
+
+````
+'use strict';
+
+// Declare app level module which depends on filters, and services
+angular.module('myApp', [
+  'ngRoute',
+  'myApp.filters',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers'
+]).
+// Deal with the hash routes like #/view2
+// Tells the app which controller to use for each route
+config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/example', {templateUrl: 'partials/example.html', controller: 'MyExample'});
+  $routeProvider.otherwise({redirectTo: '/view1'}); // add a default
+}]);
 ````
 
 </script>
