@@ -271,7 +271,7 @@ angular.module('myApp.controllers', []).
   }])
   .controller('MyCtrl2', [function() {
 
-  }]);
+  }])
   .controller('MyExample', [function() {
 
   }]);
@@ -280,7 +280,28 @@ angular.module('myApp.controllers', []).
 
 <a href="../app/index.html#/example">See the example</a>
 
-But it doesn't work...
+Now it works.
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## Review
+
+* We editted the app to tell it the route to a new view
+
+* We provided some HTML snippet as the partial view we added
+
+* We used some kind of template in that HTML snippet and we used these
+ng- tags to mark up the HTML to connect it to the models.
+
+* We added an empty controller because we said we would
 
 </script>
 </div>
@@ -290,33 +311,139 @@ But it doesn't work...
 
 
 
+
 <!-- ######################## START MARKDOWN SLIDE ########################## -->
 <section>
 <div data-markdown>
 <script type="text/template">
-## app/js/app.js
+## That seems complicated.
 
-Let's add a view
+It doesn't have to be.
+
+Checkout http://jsfiddle.net/3hsSe/
+
+We show the difference between a factory (something that can run and
+return something) versus a service (a singleton).
+
+We also show how values can get updated without a lot of work!
+
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## In case JSFiddle is down
+
+Based on Manish Chhabra's example: http://blog.manishchhabra.com/2013/09/angularjs-service-vs-factory-with-example/
 
 ````
-'use strict';
+<div ng-controller="HelloCtrl">
+    <p>service id: {{service.id}}</p>
+    <p>factory id: {{factory.id}}</p>
+    <p>fs: {{fromService}}</p>
+    <p>ff: {{fromFactory}}</p>
+    <p>shw: {{service.sayHello("World")}}</p>
+    <p>Fi: {{factory.sayHello(inputToFactory)}}</p>
+    <p>Si: {{service.sayHello(inputToFactory)}}</p>
+    <p>Factory.message: {{factory.message}}</p>
+    <p>Service.message: {{service.message}}</p>Input:
+    <input type="text" ng-model="inputToFactory" />
+    </br>
+</div>
+<br />
+<div ng-controller="GoodbyeCtrl">
+    <p>service id: {{service.id}}</p>
+    <p>factory id: {{factory.id}}</p>
+    <p>{{fromService}}</p>
+    <p>{{fromFactory}}</p>
+    <p>{{factory.sayGoodbye(inputToFactory)}}</p>
+    <p>{{service.sayGoodbye(inputToFactory)}}</p>Factory:
+    <input type="text" ng-model="factory.message" />
+    <br/>Service:
+    <input type="text" ng-model="service.message" />
+    <br/>Input:
+    <input type="text" ng-model="inputToFactory" />
+    </br>
+    <p>Factory.message: {{factory.message}}</p>
+    <p>Service.message: {{service.message}}</p>
+</div>
+````
 
-// Declare app level module which depends on filters, and services
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
-  'myApp.controllers'
-]).
-// Deal with the hash routes like #/view2
-// Tells the app which controller to use for each route
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.when('/example', {templateUrl: 'partials/example.html', controller: 'MyExample'});
-  $routeProvider.otherwise({redirectTo: '/view1'}); // add a default
-}]);
+````
+function generateID() {
+    
+}
+
+//angular.js example for factory vs service
+var app = angular.module('myApp', []);
+
+// This factory allows you to call new on it.
+app.factory('testFactory', function () {
+    return function() {
+        var self = this;
+        this.message = "";
+        this.id = Math.random();
+        this.sayHello = function (text) {
+            return "Factory says \"Hello " + text + "\"" + self.message;
+        };
+        this.sayGoodbye = function (text) {
+            return "Factory says \"Goodbye " + text + "\"" + self.message;
+        };
+    };
+});
+
+// The service ends up being a singleton
+app.service('testService', function () {
+    this.message = "";
+    this.id = Math.random();
+    this.sayHello = function (text) {
+        return "Service says \"Hello " + text + "\"" + this.message;
+    };
+    this.sayGoodbye = function (text) {
+        return "Service says \"Goodbye " + text + "\"" + this.message;
+    };
+});
+
+function HelloCtrl($scope, testService, testFactory) {
+    $scope.service = testService;
+    $scope.factory = new testFactory();
+    $scope.fromService = testService.sayHello("World");
+    $scope.fromFactory = $scope.factory.sayHello("World");
+}
+
+function GoodbyeCtrl($scope, testService, testFactory) {
+    $scope.factory = new testFactory();
+    $scope.service = testService;
+    $scope.inputToFactory = "World";
+    $scope.fromService = testService.sayGoodbye($scope.inputToFactory);
+    $scope.fromFactory = $scope.factory.sayGoodbye($scope.inputToFactory);
+}
+````
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## How to deal with updates from timeouts
+
+````
+window.setInterval(
+    function() {
+        $scope.$apply(
+            function() { 
+                service.message = "X"+Math.random();
+            }); 
+    },1000);
 ````
 
 </script>
