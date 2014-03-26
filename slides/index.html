@@ -529,6 +529,25 @@ window.setInterval(
 <script type="text/template">
 ## MVC and Angular
 
+* Back to MVC
+
+* Views are the HTML and the Directives in the HTML and the partials.
+
+* Controllers are obviously the controllers, but they are a little fat
+and do more than a plain controller.
+
+* Model, the model should be your services, values, factories and
+providers. But often the model ends up being stored in the $scope of
+controllers.
+
+  * Consider exposing controller values to the view only to use
+  updates to those values to update the model
+
+  * Make sure everything is named in Angular as a value, service,
+  factory or provider.
+
+* Angular's view of MVC is MVW: Model View Whatever. They choose to go
+the Google way, which is whatever works well for them.
 
 </script>
 </div>
@@ -541,6 +560,60 @@ window.setInterval(
 <script type="text/template">
 ## More on templating
 
+* HTML with Partials 
+  * http://docs.angularjs.org/api/ngRoute/directive/ngView
+  * ngView will allow a route to rewrite it
+
+````
+<div ng-view></div>
+<ng-view/> <!-- not good in IE -->
+````
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## Templating: Directives
+
+* You can make your own directives like ng-view
+* This allows you to share templates between templates :D
+
+app.js
+````
+// ...
+  $routeProvider.when('/tuples', {templateUrl: 'partials/tuples.html', controller: 'Tuples'});
+// ...
+// becomes my-tuple
+.directive('myTuple', function() {
+   return {
+      restrict: 'E', //match element name
+      templateUrl: 'partials/myTuple.html'
+   };
+})
+````
+
+partials/myTuple.html
+
+````
+<span class="tuple"> {{ tuple.first }} , {{ tuple.rest }} </span>
+````
+
+partials/tuples.html
+
+````
+div ng-controller="Tuples">
+<p>
+<li ng-repeat="tuple in tuples">
+<my-tuple></my-tuple>
+</li>
+</p>
+</div>
+````
 
 </script>
 </div>
