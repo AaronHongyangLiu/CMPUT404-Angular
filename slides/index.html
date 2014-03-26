@@ -308,7 +308,78 @@ ng- tags to mark up the HTML to connect it to the models.
 </section>
 <!-- ######################## END MARKDOWN SLIDE ########################## -->
 
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## More Angular
 
+* Filters are used to show partial collections. If you show customers
+you can filter them {{ collection | filter }}
+* Services are to provide services (singletons) and factories (single
+creator of multiple objects)
+* Directives are special HTML annotations you can define that angular
+will parse. Allowing for powerful and recursive templating.
+* Controllers help provide data to views and allow for modification
+and scope of models
+
+````
+angular.module('myApp', [
+  'ngRoute',
+  'myApp.filters',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers'
+])
+````
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## Factories and Services
+
+* Services are singletons. They are an object that you configure and
+share.
+
+* Factories are a function that runs ONCE to produce a value. It could
+produce a class for you to create new objects from.
+
+* You use factories and services because they have names and can be
+INJECTED (dependency injected) into controllers.
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## Dependency Injection
+
+The arguments in controller are never called by you, they are resolved
+by angular. Angular will provide the appropriately named service. 
+
+This means you don't have to worry about including the appropriate
+javascript in scope.
+
+It also means that your application should be structured by NAMED
+Angular components rather than anything else. Globals are defined as
+values, shared code as services, builders as factories, and more
+complicated structures as providers.
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
 
 
 
@@ -450,6 +521,8 @@ window.setInterval(
 </div>
 </section>
 <!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
 
 
 
