@@ -1,3 +1,4 @@
-echo http://localhost:8181/app/index.html
 (sleep 2; xdg-open http://localhost:8181/app/index.html) &
+echo http://localhost:8181/slides/
+echo http://localhost:8181/app/index.html
 python -m SimpleHTTPServer 8181
