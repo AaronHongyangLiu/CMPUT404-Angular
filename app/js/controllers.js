@@ -22,6 +22,4 @@ angular.module('myApp.controllers', []).
       $scope.addTuple = function() {
           $scope.tuples.push({first:"new",rest:Math.random()});
       };
-      
-
   }]);

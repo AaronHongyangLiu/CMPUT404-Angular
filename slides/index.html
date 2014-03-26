@@ -608,11 +608,62 @@ partials/tuples.html
 ````
 div ng-controller="Tuples">
 <p>
-<li ng-repeat="tuple in tuples">
-<my-tuple></my-tuple>
-</li>
+  <ul>
+    <li ng-repeat="tuple in tuples">
+      <my-tuple></my-tuple>
+    </li>
+  </ul>
 </p>
 </div>
+````
+
+controllers.js
+
+````
+  .controller('Tuples', ['$scope',function($scope) {
+      $scope.tuples = [{first: "first", rest:"some stuff"},
+                       {first: "second", rest:"more stuff"},
+                       {first: "third", rest:"more stuff"},
+                       {first: "fourth", rest:"more stuff"},
+                       {first: "fifth", rest:"more stuff"}];
+  }]);
+````
+
+See it live: http://127.0.0.1:8181/app/#/tuples
+
+</script>
+</div>
+</section>
+<!-- ######################## END MARKDOWN SLIDE ########################## -->
+
+
+<!-- ######################## START MARKDOWN SLIDE ########################## -->
+<section>
+<div data-markdown>
+<script type="text/template">
+## Templating: Directives
+
+* We can make this far more dynamic as well:
+
+* If we share functions in $scope we can call them
+
+````
+  .controller('Tuples', ['$scope',function($scope) {
+      $scope.tuples = [{first: "first", rest:"some stuff"},
+                       {first: "second", rest:"more stuff"},
+                       {first: "third", rest:"more stuff"},
+                       {first: "fourth", rest:"more stuff"},
+                       {first: "fifth", rest:"more stuff"}];
+      $scope.addTuple = function() {
+          $scope.tuples.push({first:"new",rest:Math.random()});
+      };
+  }]);
+````
+
+Easy to call
+
+````
+    <button ng-click="addTuple()"> Add Tuple </button>
 ````
 
 </script>
