@@ -679,6 +679,21 @@ Easy to call
 <script type="text/template">
 ## Filters
 
+* Filters select items from lists
+
+* You might want to
+  * select by text
+  * allow in page querying
+
+Here's a filter using search text using the default filter
+````
+    Any: <input ng-model="searchText"> <br>
+    <ul>
+      <li ng-repeat="tuple in tuples | filter:searchText">
+        <my-tuple></my-tuple>
+      </li>
+    </ul>
+````
 
 
 </script>
